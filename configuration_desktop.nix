@@ -23,6 +23,10 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+  
+  virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
+   virtualisation.virtualbox.host.enableExtensionPack = true;
 
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
@@ -48,7 +52,7 @@
   users.users.yeehawitsjake = {
     isNormalUser = true;
     description = "Jake Smith";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "vboxusers"];
     packages = with pkgs; [
       kate
     ];
@@ -61,50 +65,75 @@
   system.stateVersion = "23.11";
 
   environment.systemPackages = [
-	#desktop stuff
-	pkgs.libsForQt5.qtcurve
-	#COMMs
-	pkgs.telegram-desktop
-	pkgs.signal-desktop
-	pkgs.slack
-	pkgs.vesktop
-	#dev stuff
-	pkgs.docker
-	pkgs.jetbrains.phpstorm
-	pkgs.jetbrains.datagrip
-	#gayming
-	pkgs.steam
-	#misc tools
-	pkgs.git
-	pkgs.etcher
-	pkgs.vim
-	pkgs.wget
-	pkgs.neofetch
-	pkgs.android-tools
-	#data security
-	pkgs.veracrypt
-	#auditing tools
-	pkgs.hashcat
-	pkgs.hashcat-utils
-	pkgs.armitage
+        #desktop stuff
+        pkgs.libsForQt5.qtcurve
+        #COMMs
+        pkgs.telegram-desktop
+        pkgs.signal-desktop
+        pkgs.slack
+        pkgs.vesktop
+        #dev stuff
+        pkgs.jetbrains.phpstorm
+        pkgs.jetbrains.datagrip
+        pkgs.jetbrains.rider
+        pkgs.jetbrains.pycharm-professional
+        pkgs.php
+        ##pkgs.postman
+        pkgs.nodejs_21
+        pkgs.typescript
+        pkgs.mono
+        pkgs.dotnet-sdk_8
+        #gayming
+        pkgs.steam
+        pkgs.prismlauncher
+        #misc tools
+        pkgs.git
+        pkgs.etcher
+        pkgs.vim
+        pkgs.wget
+        pkgs.neofetch
+        pkgs.android-tools
+        pkgs.kexec-tools
+        pkgs.chromium
+        pkgs.libsForQt5.kfind
+        pkgs.btop
+        pkgs.openssl
+        pkgs.openjdk8-bootstrap
+        #data security
+        pkgs.veracrypt
+        #auditing tools
+        pkgs.hashcat
+        pkgs.hashcat-utils
+        pkgs.armitage
         pkgs.metasploit 
         pkgs.wifite2
-	pkgs.nmap
-	pkgs.burpsuite
-	pkgs.airgeddon
-	pkgs.aircrack-ng
-	pkgs.binwalk
-	#media
-	pkgs.spotify
-	pkgs.vlc
-	pkgs.obs-studio
-	pkgs.libsForQt5.kdenlive
-	pkgs.glaxnimate
-	pkgs.gimp
+        pkgs.nmap
+        pkgs.burpsuite
+        pkgs.airgeddon
+        pkgs.aircrack-ng
+        pkgs.binwalk
+        #media
+        pkgs.spotify
+        pkgs.vlc
+        pkgs.obs-studio
+        pkgs.libsForQt5.kdenlive
+        pkgs.glaxnimate
+        pkgs.gimp
+        pkgs.arduino
+        #networking
+        pkgs.tailscale
+        pkgs.protonvpn-gui
+        pkgs.dig
+        #shitposting
+        pkgs.blender
+        pkgs.thefuck
+        #infra management
+        pkgs.freerdp
+        pkgs.remmina
   ];  
 
   nixpkgs.config.permittedInsecurePackages = [
-	"electron-19.1.9"
+        "electron-19.1.9"
   ];
 
   security = {
@@ -153,7 +182,7 @@
   networking = {
 
     firewall = rec {
-      enable = true;
+      enable = false;
       allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
       allowedUDPPortRanges = allowedTCPPortRanges;
       allowPing = false;
